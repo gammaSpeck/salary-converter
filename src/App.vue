@@ -32,12 +32,11 @@
 
       <n-alert v-if="targetState.currencyValue" type="info" :show-icon="false">
         <n-p depth="3">
-          In {{ srcState.name }}, {{ srcState.currencyValue }}
-          {{ srcState.code }} ({{ srcState.codeName }}) will allow you to buy
-          the same things you'd buy with
-          {{ targetState.currencyValue }}
-          {{ targetState.code }} ({{ targetState.codeName }}) in
-          {{ targetState.name }}.
+          In {{ targetState.name }}, {{ targetState.currencyValue }}
+          {{ targetState.code }} ({{ targetState.codeName }}) will allow you to
+          buy the same things you'd buy with
+          {{ srcState.currencyValue }}
+          {{ srcState.code }} ({{ srcState.codeName }}) in {{ srcState.name }}.
         </n-p>
       </n-alert>
     </n-space>
@@ -161,19 +160,25 @@ function reset() {
     codeName: ""
   };
 }
-
-onMounted(() => {
-  window.cc = cc;
-
-  const all = cc.countries();
-  console.log({ all });
-  console.log(all.filter((c) => c.includes("Czech")));
-});
+// For testing only
+// onMounted(() => {
+//   window.cc = cc;
+//   const all = cc.countries();
+//   console.log({ all });
+//   console.log(all.filter((c) => c.includes("Czech")));
+// });
 </script>
 
 <style scoped>
 .container {
-  margin: 0 20vw 0 20vw;
   /* background-color: aliceblue; */
+  max-width: 600px;
+  margin: auto;
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 20px;
+  }
 }
 </style>
