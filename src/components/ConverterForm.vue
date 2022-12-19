@@ -8,6 +8,7 @@
     >
       <n-select
         v-model:value="formValue.srcCountry"
+        @input="$event.target.composing = false"
         :options="srcOptions"
         filterable
       />
@@ -34,6 +35,7 @@
     >
       <n-select
         v-model:value="formValue.targetCountry"
+        @input="$event.target.composing = false"
         :options="targetOptions"
         filterable
       />
