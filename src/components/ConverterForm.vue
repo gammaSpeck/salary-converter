@@ -8,7 +8,7 @@
     >
       <n-select
         v-model:value="formValue.srcCountry"
-        @input="$event.target.composing = false"
+        @input="vEagerWorkaround"
         :options="srcOptions"
         filterable
       />
@@ -35,7 +35,7 @@
     >
       <n-select
         v-model:value="formValue.targetCountry"
-        @input="$event.target.composing = false"
+        @input="vEagerWorkaround"
         :options="targetOptions"
         filterable
       />
@@ -153,6 +153,14 @@ function resetForm() {
   formValue.targetCountry = null;
   formRef.value?.restoreValidation();
   emit("reset");
+}
+
+/**
+ * Workaround to implement this:
+ * https://github.com/vuejs/vue/pull/9814#issuecomment-763266927
+ */
+function vEagerWorkaround(e: any) {
+  e.target && (e.target.composing = false);
 }
 </script>
 
