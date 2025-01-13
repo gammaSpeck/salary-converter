@@ -1,5 +1,10 @@
 import { parse } from "csv-parse/sync";
 import fs from "fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * 1. Download the data from `https://data.worldbank.org/indicator/PA.NUS.PRVT.PP`
@@ -7,8 +12,8 @@ import fs from "fs/promises";
  * 3. Copy paste the output.json contents in the `interfaces/index.ts` file
  */
 
-const test = async (relevantYear = 2021) => {
-  const content = await fs.readFile("../data.csv");
+async function parseCsvToJson(relevantYear = 2023){
+  const content = await fs.readFile(`${__dirname}/data/data2023.csv`);
   const records = parse(content, { relaxQuotes: true, relaxColumnCount: true });
 
   // Get only relevant data => The first 4 lines have insignificant data
@@ -74,9 +79,9 @@ const test = async (relevantYear = 2021) => {
   );
 
   fs.writeFile(
-    "./hack/output.json",
+    `./hack/output-${relevantYear}.json`,
     JSON.stringify(countryCodesMap, undefined, 2)
   );
 };
 
-test();
+parseCsvToJson(2023);
